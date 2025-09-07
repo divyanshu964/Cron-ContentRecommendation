@@ -1,0 +1,16 @@
+name: Hourly Webhook Trigger
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour on the hour
+  workflow_dispatch:       # also allows manual trigger from the UI
+
+jobs:
+  call-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run curl command
+        run: |
+          curl -i -X POST https://nodejs-production-0625.up.railway.app/webhook/Content \
+            -H "Content-Type: application/json" \
+            -d '{"user_query":"feel-good Hindi series under 30 mins","region":"IN"}'
